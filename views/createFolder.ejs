@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Folder</title>
+</head>
+
+<body>
+  <h1>Create a New Folder</h1>
+
+  <form action="/create" method="POST">
+    <div>
+      <label for="folderName">Folder name</label>
+      <input
+        type="text"
+        id="folderName"
+        name="folderName"
+        placeholder="Enter folder name"
+        required
+      >
+    </div>
+
+    <button type="submit">Create Folder</button>
+  </form>
+
+  <a href="/">Cancel</a>
+</body>
+</html>

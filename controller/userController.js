@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs"
  
 
 async function getHome(req,res) {
-    res.send("Hello!!!")
+    res.render("index")
 }
 
 async function getSignUp(req,res) {
@@ -36,4 +36,13 @@ async function getLogin(req,res) {
     res.render("login")
 }
 
-export {getHome,getSignUp,getLogin,postSignUp};
+async function getLogout(req,res,next) {
+     req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}
+
+export {getHome,getSignUp,getLogin,postSignUp,getLogout};

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getHome,getSignUp,getLogin,postSignUp } from "../controller/userController.js";
+import { getHome,getSignUp,getLogin,postSignUp,getLogout } from "../controller/userController.js";
 import { validateSignUp } from "../middleware/validation.js";
 import passport from "../passport.js"
 
@@ -15,5 +15,6 @@ userRouter.post("/login",passport.authenticate("local",{
  failureRedirect:"/login",
 })
 );
+userRouter.get("/log-out",getLogout)
 
 export default userRouter;
