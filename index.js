@@ -1,5 +1,7 @@
 import express from "express";
 
+import userRouter from "./routes/userRouter.js";
+
 const app = express();
 const PORT = 3000;
 
@@ -7,40 +9,9 @@ const PORT = 3000;
 app.set("view engine", "ejs");
 
 // Middleware for form data
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
-// Home
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
-
-// // Signup page
-// app.get("/signup", (req, res) => {
-//   res.render("signup");
-// });
-
-// // Handle signup
-// app.post("/signup", (req, res) => {
-//   const { username, password } = req.body;
-
-//   console.log("Signup:", username, password);
-
-//   res.redirect("/login");
-// });
-
-// // Login page
-// app.get("/login", (req, res) => {
-//   res.render("login");
-// });
-
-// // Handle login
-// app.post("/login", (req, res) => {
-//   const { username, password } = req.body;
-
-//   console.log("Login:", username, password);
-
-//   res.send("Login submitted!");
-// });
+app.use(userRouter);
 
 // Start server
 app.listen(PORT, () => {
