@@ -11,20 +11,25 @@ async function getSignUp(req,res) {
 }
 
 async function postSignUp(req,res) {
-    const {firstname,lastname,username,password} = req.body;
+  const { firstName, lastName, username, password } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password,10);
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({
-        data: {
-            firstname,
-            lastname,
-            username,
-            password:hashedPassword,
-        },
-    })
+    await prisma.user.create({
+      data: {
+        firstname,
+        lastname,
+        username,
+        password: hashedPassword,
+      },
+    });
 
-    res.redirect("/login")
+    res.redirect("/log-in");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Something went wrong");
+  }
 }
 
 async function getLogin(req,res) {

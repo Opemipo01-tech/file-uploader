@@ -1,6 +1,15 @@
+import "dotenv/config";
 import express from "express";
+import session from "express-session";
+import passport from "passport";
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+import { prisma } from "./db/prisma.js"; 
+
 
 import userRouter from "./routes/userRouter.js";
+
+
+import "./passport.js";
 
 const app = express();
 const PORT = 3000;
@@ -10,6 +19,22 @@ app.set("view engine", "ejs");
 
 // Middleware for form data
 app.use(express.urlencoded({ extended: false }));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+
+    store:new PrismaSessionStore(prisma,{
+        checkPeriod: 2 * 60 * 1000,
+        dbRecordIdIsSessionId:true,
+    }),
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(userRouter);
 
