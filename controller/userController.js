@@ -3,7 +3,19 @@ import bcrypt from "bcryptjs"
  
 
 async function getHome(req,res) {
-    res.render("index")
+
+    const folders = await prisma.folder.findMany({
+        where:{
+            userId:req.user.id,
+        },
+        orderBy:{
+            createdAt:"desc",
+        },
+    });
+
+    res.render("index",{
+        folders
+    })
 }
 
 async function getSignUp(req,res) {
@@ -45,4 +57,204 @@ async function getLogout(req,res,next) {
   });
 }
 
-export {getHome,getSignUp,getLogin,postSignUp,getLogout};
+async function getCreateFolder(req, res) {
+  res.render("createFolder");
+}
+
+async function postCreateFolder(req, res) {
+  const { folderName } = req.body;
+
+  try {
+    await prisma.folder.create({
+      data: {
+        name:folderName,
+        userId: req.user.id,
+      },
+    });
+
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Unable to create folder");
+  }
+}
+
+async function getFolder(req,res) {
+    const folderId = Number(req.params.id);
+
+    try{
+        const folder = await prisma.folder.findFirst({
+          where: {
+            id: folderId,
+            userId: req.user.id,
+          },
+          include:{
+            files:true,
+          },  
+        });
+
+        if (!folder) {
+            returnres.status(404).send("Folder not found");
+        }
+
+        res.render("folder",{
+            folder,
+        });
+    } catch(error) {
+        console.error(error);
+        res.status(500).send("Unable to load folder");
+    }
+}
+
+async function getRenameFolder(req, res) {
+  const folderId = Number(req.params.id);
+
+  try {
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!folder) {
+      return res.status(404).send("Folder not found");
+    }
+
+    res.render("renameFolder", {
+      folder,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Unable to load folder");
+  }
+}
+
+ async function postRenameFolder(req, res) {
+  const folderId = Number(req.params.id);
+  const { name } = req.body;
+
+  try {
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!folder) {
+      return res.status(404).send("Folder not found");
+    }
+
+    await prisma.folder.update({
+      where: {
+        id: folderId,
+      },
+      data: {
+        name,
+      },
+    });
+
+    res.redirect(`/folders/${folderId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Unable to rename folder");
+  }
+}
+
+ async function postDeleteFolder(req, res) {
+  const folderId = Number(req.params.id);
+
+  try {
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!folder) {
+      return res.status(404).send("Folder not found");
+    }
+
+    await prisma.folder.delete({
+      where: {
+        id: folderId,
+      },
+    });
+
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Unable to delete folder");
+  }
+}
+
+async function getCreateFile(req,res) {
+    const folderId = Number(req.params.id);
+
+    try{
+        const folder = await prisma.folder.findFirst({
+          where: {
+            id: folderId,
+            userId: req.user.id,
+          },
+          include:{
+            files:true,
+          },  
+        });
+
+        if (!folder) {
+            returnres.status(404).send("Folder not found");
+        }
+
+        res.render("fileUpload",{
+            folder,
+        });
+    } catch(error) {
+        console.error(error);
+        res.status(500).send("Unable to load upload page");
+    }
+}
+
+async function postFileUpload(req,res) {
+     const folderId = Number(req.params.id);
+
+  try {
+    // Make sure a file was actually uploaded
+    if (!req.file) {
+      return res.status(400).send("No file uploaded");
+    }
+
+    // Make sure the folder belongs to the logged-in user
+    const folder = await prisma.folder.findFirst({
+      where: {
+        id: folderId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!folder) {
+      return res.status(404).send("Folder not found");
+    }
+
+    // Create the file record in the database
+    await prisma.file.create({
+      data: {
+        name: req.file.originalname,
+        size: req.file.size,
+        url: req.file.path,
+        folderId: folderId,
+      },
+    });
+
+    res.redirect(`/folders/${folderId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Unable to upload file");
+  }
+}
+
+
+export {getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload};
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= folder.name %></title>
+</head>
+
+<body>
+
+  <h1><%= folder.name %></h1>
+
+  <p>
+    Created:
+    <%= folder.createdAt.toLocaleString() %>
+  </p>
+
+  <h2>Files</h2>
+
+  <% if (folder.files.length === 0) { %>
+
+    <p>This folder is empty.</p>
+
+  <% } else { %>
+
+    <ul>
+      <% folder.files.forEach(file => { %>
+        <li>
+          <%= file.name %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } %>
+
+  <a href="/folders/<%= folder.id %>/rename">
+    Rename Folder
+  </a>
+<a href="/folders/<%= folder.id %>/upload">Add file</a>
+  <form
+    action="/folders/<%= folder.id %>/delete"
+    method="POST"
+  >
+    <button type="submit">
+      Delete Folder
+    </button>
+  </form>
+
+  <br>
+
+  <a href="/">Back to folders</a>
+
+</body>
+</html>

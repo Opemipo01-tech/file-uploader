@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rename Folder</title>
+</head>
+
+<body>
+
+  <h1>Rename Folder</h1>
+
+  <form
+    action="/folders/<%= folder.id %>/rename"
+    method="POST"
+  >
+
+    <label for="name">Folder name</label>
+
+    <input
+      type="text"
+      id="name"
+      name="name"
+      value="<%= folder.name %>"
+      required
+    >
+
+    <button type="submit">
+      Rename
+    </button>
+
+  </form>
+
+  <a href="/folders/<%= folder.id %>">
+    Cancel
+  </a>
+
+</body>
+</html>

@@ -10,12 +10,31 @@
   <h1>File Uploader</h1>
 
   <% if (user) { %>
-
-    <h2>Welcome, <%= user.firstname %>!</h2>
-
-    <h3>My folders</h3>
-
+    
     <a href="/create">New-Folder</a>
+    
+    <h2>Welcome, <%= user.firstname %>!</h2>
+    <h3>My folders</h3>
+    
+      <% if (folders.length === 0) { %>
+
+      <p>You don't have any folder yet.</p>
+
+    <% } else { %>
+
+      <ul>
+        <% folders.forEach(folder => { %>
+
+          <li>
+            <a href="/folders/<%= folder.id %>">
+              <%= folder.name %>
+            </a>
+          </li>
+
+        <% }) %>
+      </ul>
+
+    <% } %>
 
  <a href="/log-out">Log Out</a>
 

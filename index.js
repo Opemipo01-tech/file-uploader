@@ -17,6 +17,11 @@ const PORT = 3000;
 // EJS setup
 app.set("view engine", "ejs");
 
+// app.use((req, res, next) => {
+//   console.log("BODY PARSER:", req.body);
+//   next();
+// });
+
 // Middleware for form data
 app.use(express.urlencoded({ extended: false }));
 
