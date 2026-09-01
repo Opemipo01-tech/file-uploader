@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload,getFileDetails } from "../controller/userController.js";
+import { getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload,getFileDetails,downloadFile } from "../controller/userController.js";
 import { validateSignUp } from "../middleware/validation.js";
 import passport from "../passport.js"
 import { requireAuth } from "../middleware/auth.js";
@@ -27,5 +27,6 @@ userRouter.post("/folders/:id/delete",requireAuth,postDeleteFolder);
 userRouter.get("/folders/:id/upload",requireAuth,getCreateFile);
 userRouter.post("/folders/:id/upload",requireAuth,upload.single("file"),postFileUpload);
 userRouter.get("/file/:id",requireAuth,getFileDetails);
+userRouter.get("/file/:id/download",requireAuth,downloadFile);
 
 export default userRouter;

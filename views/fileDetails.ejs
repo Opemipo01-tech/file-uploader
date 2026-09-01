@@ -28,6 +28,10 @@
       <strong>Uploaded:</strong>
        <%= file.uploadedAt.toLocaleString() %>
     </p>
+
+    <a href="/file/<%= file.id %>/download">
+  <button type="button">Download</button>
+</a>
   </div>
 
   <a href="/folders/<%= file.folderId %>">Back to folder</a>

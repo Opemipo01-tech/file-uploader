@@ -1,5 +1,6 @@
 import { prisma } from "../db/prisma.js";
 import bcrypt from "bcryptjs"
+import path from "node:path";
  
 
 async function getHome(req,res) {
@@ -23,7 +24,7 @@ async function getSignUp(req,res) {
 }
 
 async function postSignUp(req,res) {
-  const { firstName, lastName, username, password } = req.body;
+  const { firstname, lastname, username, password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -261,7 +262,7 @@ async function getFileDetails(req,res) {
     try{
   
 
-    // Make sure the folder belongs to the logged-in user
+    // Make sure the file belongs to the logged-in user
     const file = await prisma.file.findFirst({
       where: {
         id: fileId,
@@ -288,29 +289,42 @@ async function getFileDetails(req,res) {
 
 }
 
+async function downloadFile(req,res) {
+        const fileId = Number(req.params.id);
 
-    // try{
-    //     const folder = await prisma.folder.findFirst({
-    //       where: {
-    //         id: folderId,
-    //         userId: req.user.id,
-    //       },
-    //       include:{
-    //         files:true,
-    //       },  
-    //     });
+    try{
+  
 
-    //     if (!folder) {
-    //         returnres.status(404).send("Folder not found");
-    //     }
+    // Make sure the file belongs to the logged-in user
+    const file = await prisma.file.findFirst({
+      where: {
+        id: fileId,
+        folder:{
+            userId: req.user.id,
+        }
+      },
+    });
 
-    //     res.render("folder",{
-    //         folder,
-    //     });
-    // } catch(error) {
-    //     console.error(error);
-    //     res.status(500).send("Unable to load folder");
-    // }
+    if (!file) {
+      return res.status(404).send("File not found");
+    }
 
-export {getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload,getFileDetails};
+     const filePath = path.resolve(file.url);
+
+     res.download(filePath,file.name,(error) => {
+        if (error){
+            console.error(error);
+        }
+     })
+     
+
+    } catch(error) {
+        console.error(error);
+        res.status(500).send("Unable to download file");
+    }
+}
+
+
+
+export {getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload,getFileDetails,downloadFile};
 
