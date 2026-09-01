@@ -1,14 +1,14 @@
 import { body, validationResult } from "express-validator";
 
 export const validateSignUp = [
-  body("firstName")
+  body("firstname")
     .trim()
     .notEmpty()
     .withMessage("First name is required")
     .isLength({ min: 2 })
     .withMessage("First name must be at least 2 characters"),
 
-  body("lastName")
+  body("lastname")
     .trim()
     .notEmpty()
     .withMessage("Last name is required")

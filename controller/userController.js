@@ -39,7 +39,7 @@ async function postSignUp(req,res) {
       },
     });
 
-    res.redirect("/log-in");
+    res.redirect("/login");
   } catch (error) {
     console.error(error);
     res.status(500).send("Something went wrong");
