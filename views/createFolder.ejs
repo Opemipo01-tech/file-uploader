@@ -1,30 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Create Folder</title>
+
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-  <h1>Create a New Folder</h1>
 
-  <form action="/create" method="POST">
-    <div>
-      <label for="folderName">Folder name</label>
-      <input
-        type="text"
-        id="folderName"
-        name="folderName"
-        placeholder="Enter folder name"
-        required
-      >
-    </div>
+  <div class="form-container">
 
-    <button type="submit">Create Folder</button>
-  </form>
+    <h1>Create a New Folder</h1>
 
-  <a href="/">Cancel</a>
+    <form action="/create" method="POST">
+
+      <div>
+        <label for="folderName">
+          Folder name
+        </label>
+
+        <input
+          type="text"
+          id="folderName"
+          name="folderName"
+          placeholder="Enter folder name"
+          required
+        >
+      </div>
+
+      <button type="submit">
+        Create Folder
+      </button>
+
+    </form>
+
+    <p style="margin-top: 15px; text-align: center;">
+      <a class="link" href="/">
+        ← Back to folders
+      </a>
+    </p>
+
+  </div>
+
 </body>
 </html>

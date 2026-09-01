@@ -1,55 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title><%= folder.name %></title>
+
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
 
-  <h1><%= folder.name %></h1>
+  <nav class="nav">
 
-  <p>
-    Created:
-    <%= folder.createdAt.toLocaleString() %>
-  </p>
+    <div class="nav-logo">
+      File Uploader
+    </div>
 
-  <h2>Files</h2>
+    <div class="nav-links">
+      <a class="link" href="/">
+        My Folders
+      </a>
 
-  <% if (folder.files.length === 0) { %>
+      <a class="btn btn-secondary" href="/log-out">
+        Log Out
+      </a>
+    </div>
 
-    <p>This folder is empty.</p>
+  </nav>
 
-  <% } else { %>
 
-    <ul>
-      <% folder.files.forEach(file => { %>
-        <li>
-          <%= file.name %>
-        </li>
-                                 
-        <a href="/file/<%= file.id %>"> File Details</a>
-      <% }) %>
-    </ul>
+  <main class="container">
 
-  <% } %>
+    <div class="folder-header">
 
-  <a href="/folders/<%= folder.id %>/rename">
-    Rename Folder
-  </a>
-<a href="/folders/<%= folder.id %>/upload">Add file</a>
-  <form
-    action="/folders/<%= folder.id %>/delete"
-    method="POST"
-  >
-    <button type="submit">
-      Delete Folder
-    </button>
-  </form>
+      <div>
+        <h1>📁 <%= folder.name %></h1>
 
-  <br>
+        <p>
+          Created:
+          <%= folder.createdAt.toLocaleString() %>
+        </p>
+      </div>
 
-  <a href="/">Back to folders</a>
+      <div class="folder-actions">
+
+        <a
+          class="btn"
+          href="/folders/<%= folder.id %>/upload"
+        >
+          + Add File
+        </a>
+
+        <a
+          class="btn btn-secondary"
+          href="/folders/<%= folder.id %>/rename"
+        >
+          Rename
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <section>
+
+      <h2>Files</h2>
+
+      <% if (folder.files.length === 0) { %>
+
+        <div class="empty-state">
+
+          <p>
+            This folder is empty.
+          </p>
+
+          <a
+            class="btn"
+            href="/folders/<%= folder.id %>/upload"
+          >
+            Upload a file
+          </a>
+
+        </div>
+
+      <% } else { %>
+
+        <ul class="file-list">
+
+          <% folder.files.forEach(file => { %>
+
+            <li class="file-item">
+
+              <div>
+
+                <div class="file-name">
+                  📄 <%= file.name %>
+                </div>
+
+                <small>
+                  <%= file.size %> bytes
+                </small>
+
+              </div>
+
+              <div class="file-actions">
+
+                <a
+                  class="btn btn-secondary"
+                  href="/file/<%= file.id %>"
+                >
+                  Details
+                </a>
+
+              </div>
+
+            </li>
+
+          <% }) %>
+
+        </ul>
+
+      <% } %>
+
+    </section>
+
+
+    <br>
+
+    <form
+      class="delete-form"
+      action="/folders/<%= folder.id %>/delete"
+      method="POST"
+    >
+
+      <button
+        type="submit"
+        class="btn-danger"
+      >
+        Delete Folder
+      </button>
+
+    </form>
+
+    <br>
+
+    <a class="link" href="/">
+      ← Back to folders
+    </a>
+
+  </main>
 
 </body>
 </html>

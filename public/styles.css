@@ -1,0 +1,433 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+body {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(900px, 92%);
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+
+/* =========================
+   HEADINGS
+========================= */
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+h3 {
+  margin-bottom: 15px;
+}
+
+p {
+  color: #6b7280;
+}
+
+
+/* =========================
+   BUTTONS / LINKS
+========================= */
+
+.btn,
+button {
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:hover,
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+.btn-danger {
+  background: #dc2626;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.link {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 18px 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.card + .card {
+  margin-top: 15px;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container {
+  width: min(450px, 92%);
+  margin: 60px auto;
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+form {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+form div {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="file"] {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: white;
+  outline: none;
+}
+
+input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+form button {
+  width: 100%;
+}
+
+
+/* =========================
+   HOME PAGE
+========================= */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header p {
+  margin-top: 4px;
+}
+
+.folder-section {
+  margin-top: 25px;
+}
+
+.folder-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.folder-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  transition: 0.2s ease;
+}
+
+.folder-card:hover {
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.folder-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.folder-name {
+  font-weight: 600;
+}
+
+
+/* =========================
+   FOLDER PAGE
+========================= */
+
+.folder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.folder-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.file-list {
+  list-style: none;
+  margin-top: 15px;
+}
+
+.file-item {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.file-name {
+  font-weight: 600;
+}
+
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
+
+
+/* =========================
+   FILE DETAILS
+========================= */
+
+.file-details {
+  max-width: 650px;
+  margin: 50px auto;
+}
+
+.file-details h1 {
+  margin-bottom: 25px;
+}
+
+.detail-row {
+  padding: 15px 0;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.detail-label {
+  font-weight: 600;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+
+/* =========================
+   UPLOAD PAGE
+========================= */
+
+.upload-container {
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.upload-container h1 {
+  margin-bottom: 8px;
+}
+
+.upload-container p {
+  margin-bottom: 25px;
+}
+
+.file-input {
+  padding: 20px;
+  border: 2px dashed #d1d5db;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
+  border: 1px dashed #d1d5db;
+  border-radius: 12px;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   DELETE FORM
+========================= */
+
+.delete-form {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.delete-form button {
+  width: auto;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+  .nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dashboard-header,
+  .folder-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .file-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .folder-actions,
+  .file-actions {
+    width: 100%;
+  }
+
+  .folder-actions .btn,
+  .file-actions .btn {
+    text-align: center;
+  }
+}

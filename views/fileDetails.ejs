@@ -1,40 +1,83 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title><%= file.originalName %> File Details</title>
+  <title><%= file.name %> - File Details</title>
+
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-  <h1>File Details</h1>
 
-  <div>
-    <!-- <h2><%= file.originalName %></h2> -->
+  <main class="container">
 
-    <p>
-      <strong>File name:</strong>
-      <%= file.name %>
-    </p>
+    <div class="card file-details">
 
-    <p>
-      <strong>File size:</strong>
-      <%= file.size %> bytes
-    </p>
+      <h1>File Details</h1>
 
-    <p>
-      <strong>Uploaded:</strong>
-       <%= file.uploadedAt.toLocaleString() %>
-    </p>
+      <div class="detail-row">
 
-    <a href="/file/<%= file.id %>/download">
-  <button type="button">Download</button>
-</a>
-  </div>
+        <span class="detail-label">
+          File name
+        </span>
 
-  <a href="/folders/<%= file.folderId %>">Back to folder</a>
+        <span>
+          <%= file.name %>
+        </span>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span class="detail-label">
+          File size
+        </span>
+
+        <span>
+          <%= file.size %> bytes
+        </span>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span class="detail-label">
+          Uploaded
+        </span>
+
+        <span>
+          <%= file.uploadedAt.toLocaleString() %>
+        </span>
+
+      </div>
+
+
+      <div class="detail-actions">
+
+        <a
+          class="btn"
+          href="/file/<%= file.id %>/download"
+        >
+          Download
+        </a>
+
+        <a
+          class="btn btn-secondary"
+          href="/folders/<%= file.folderId %>"
+        >
+          Back to Folder
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
 </body>
 </html>
-

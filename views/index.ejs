@@ -2,49 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Uploader</title>
+
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
 
-  <h1>File Uploader</h1>
+  <nav class="nav">
+    <div class="nav-logo">
+      File Uploader
+    </div>
 
-  <% if (user) { %>
-    
-    <a href="/create">New-Folder</a>
+    <div class="nav-links">
+      <% if (user) { %>
+        <a class="btn btn-secondary" href="/log-out">Log Out</a>
+      <% } else { %>
+        <a class="link" href="/sign-up">Sign Up</a>
+        <a class="btn" href="/login">Log In</a>
+      <% } %>
+    </div>
+  </nav>
 
-    <h2>Welcome, <%= user.firstname %>!</h2>
-    <h3>My folders</h3>
-    
-      <% if (folders.length === 0) { %>
 
-      <p>You don't have any folder yet.</p>
+  <main class="container">
+
+    <% if (user) { %>
+
+      <div class="dashboard-header">
+        <div>
+          <h1>Welcome, <%= user.firstname %> 👋</h1>
+          <p>Manage your files and folders.</p>
+        </div>
+
+        <a class="btn" href="/create">
+          + New Folder
+        </a>
+      </div>
+
+
+      <section class="folder-section">
+
+        <h2>My Folders</h2>
+
+        <% if (folders.length === 0) { %>
+
+          <div class="empty-state">
+            <p>You don't have any folders yet.</p>
+
+            <a class="btn" href="/create">
+              Create your first folder
+            </a>
+          </div>
+
+        <% } else { %>
+
+          <ul class="folder-list">
+
+            <% folders.forEach(folder => { %>
+
+              <li class="folder-card">
+
+                <a href="/folders/<%= folder.id %>">
+
+                  <div class="folder-icon">
+                    📁
+                  </div>
+
+                  <div class="folder-name">
+                    <%= folder.name %>
+                  </div>
+
+                </a>
+
+              </li>
+
+            <% }) %>
+
+          </ul>
+
+        <% } %>
+
+      </section>
 
     <% } else { %>
 
-      <ul>
-        <% folders.forEach(folder => { %>
+      <div class="form-container">
 
-          <li>
-            <a href="/folders/<%= folder.id %>">
-              <%= folder.name %>
-            </a>
-          </li>
+        <div class="card">
+          <h1>File Uploader</h1>
 
-        <% }) %>
-      </ul>
+          <p>
+            Store and manage your files securely.
+          </p>
+
+          <br>
+
+          <a class="btn" href="/sign-up">
+            Create an account
+          </a>
+
+          <a class="btn btn-secondary" href="/login">
+            Log In
+          </a>
+        </div>
+
+      </div>
 
     <% } %>
 
- <a href="/log-out">Log Out</a>
-
-  <% } else { %>
-
-    <a href="/sign-up">Sign Up</a>
-
-    <a href="/login">Log In</a>
-
-  <% } %>
+  </main>
 
 </body>
 </html>

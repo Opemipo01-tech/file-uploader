@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Rename Folder</title>
+
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
 
-  <h1>Rename Folder</h1>
+  <div class="form-container">
 
-  <form
-    action="/folders/<%= folder.id %>/rename"
-    method="POST"
-  >
+    <h1>Rename Folder</h1>
 
-    <label for="name">Folder name</label>
-
-    <input
-      type="text"
-      id="name"
-      name="name"
-      value="<%= folder.name %>"
-      required
+    <form
+      action="/folders/<%= folder.id %>/rename"
+      method="POST"
     >
 
-    <button type="submit">
-      Rename
-    </button>
+      <div>
 
-  </form>
+        <label for="name">
+          Folder name
+        </label>
 
-  <a href="/folders/<%= folder.id %>">
-    Cancel
-  </a>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= folder.name %>"
+          required
+        >
+
+      </div>
+
+      <button type="submit">
+        Rename
+      </button>
+
+    </form>
+
+    <p style="margin-top: 15px; text-align: center;">
+      <a
+        class="link"
+        href="/folders/<%= folder.id %>"
+      >
+        Cancel
+      </a>
+    </p>
+
+  </div>
 
 </body>
 </html>
