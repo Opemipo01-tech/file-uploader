@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title><%= file.originalName %> File Details</title>
+</head>
+
+<body>
+  <h1>File Details</h1>
+
+  <div>
+    <!-- <h2><%= file.originalName %></h2> -->
+
+    <p>
+      <strong>File name:</strong>
+      <%= file.name %>
+    </p>
+
+    <p>
+      <strong>File size:</strong>
+      <%= file.size %> bytes
+    </p>
+
+    <p>
+      <strong>Uploaded:</strong>
+       <%= file.uploadedAt.toLocaleString() %>
+    </p>
+  </div>
+
+  <a href="/folders/<%= file.folderId %>">Back to folder</a>
+</body>
+</html>
+

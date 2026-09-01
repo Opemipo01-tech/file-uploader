@@ -255,6 +255,62 @@ async function postFileUpload(req,res) {
   }
 }
 
+async function getFileDetails(req,res) {
+    const fileId = Number(req.params.id);
 
-export {getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload};
+    try{
+  
+
+    // Make sure the folder belongs to the logged-in user
+    const file = await prisma.file.findFirst({
+      where: {
+        id: fileId,
+        folder:{
+            userId: req.user.id,
+        }
+      },
+    });
+
+    if (!file) {
+      return res.status(404).send("File not found");
+    }
+
+    res.render("fileDetails",{
+        file,
+    });
+     
+
+    } catch(error) {
+        console.error(error);
+        res.status(500).send("Unable to get file details");
+    }
+      
+
+}
+
+
+    // try{
+    //     const folder = await prisma.folder.findFirst({
+    //       where: {
+    //         id: folderId,
+    //         userId: req.user.id,
+    //       },
+    //       include:{
+    //         files:true,
+    //       },  
+    //     });
+
+    //     if (!folder) {
+    //         returnres.status(404).send("Folder not found");
+    //     }
+
+    //     res.render("folder",{
+    //         folder,
+    //     });
+    // } catch(error) {
+    //     console.error(error);
+    //     res.status(500).send("Unable to load folder");
+    // }
+
+export {getHome,getSignUp,getLogin,postSignUp,getLogout,getCreateFolder,postCreateFolder,getFolder,getRenameFolder,postRenameFolder,postDeleteFolder,getCreateFile,postFileUpload,getFileDetails};
 
