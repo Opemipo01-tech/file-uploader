@@ -96,7 +96,7 @@ async function getFolder(req,res) {
         });
 
         if (!folder) {
-            returnres.status(404).send("Folder not found");
+            return res.status(404).send("Folder not found");
         }
 
         res.render("folder",{
